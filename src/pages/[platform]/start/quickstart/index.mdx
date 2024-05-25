@@ -1295,9 +1295,14 @@ Running this command will scaffold Amplify backend files in your current project
 
 To deploy your backend use Amplify's per-developer cloud sandbox. This feature provides a separate backend environment for every developer on a team, ideal for local development and testing. To run your application with a sandbox environment, you can run the following command:
 
+<Callout info>
+
+**Note:** when using Amplify Gen 2 with Flutter, you must downgrade the generated client configuration file (`amplify_outputs.dart`) with [`--outputs-version 0`](/[platform]/reference/cli-commands/#npx-ampx-generate-outputs). This produces a amplifyconfiguration.dart client configuration file (as in Amplify Gen 1)
+
+</Callout>
 
 ```bash title="Terminal" showLineNumbers={false}
-npx ampx sandbox --outputs-format dart --outputs-out-dir lib
+npx ampx sandbox --outputs-version 0 --outputs-format dart --outputs-out-dir lib
 ```
 
 ## Adding Authentication
@@ -1350,7 +1355,7 @@ Future<void> main() async {
 Future<void> _configureAmplify() async {
   try {
     await Amplify.addPlugin(AmplifyAuthCognito());
-    await Amplify.configure(outputs);
+    await Amplify.configure(amplifyConfig);
     safePrint('Successfully configured');
   } on Exception catch (e) {
     safePrint('Error configuring Amplify: $e');
