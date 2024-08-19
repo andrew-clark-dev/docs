@@ -154,6 +154,9 @@ const openSearchDomain = new opensearch.Domain(
     encryptionAtRest: {
       enabled: true,
     },
+    capacity: {
+      dataNodeInstanceType: "t3.small.search", // free tier eligible, suitable for testing only, default - r5.large.search  
+    }
   }
 );
 // highlight-end
